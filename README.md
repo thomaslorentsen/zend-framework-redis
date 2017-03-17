@@ -1,7 +1,9 @@
 # Redis Support for Zend Framework 1
 Demos Zend Framework using Redis Sentinel as a Session manager
 # Perquisites
-Install package depenencies with composer
+Set up the redis sentinel test environment from [github.com/thomaslorentsen/redis-sentinel](https://github.com/thomaslorentsen/redis-sentinel)
+
+Install package dependencies with composer
 ```
 composer install
 ```
