@@ -19,7 +19,7 @@ docker run -p 8080:80 -d --name php-redis php-redis
 ```
 You can then view the website at [localhost:8080](http://localhost:8080/)
 # How it works
-First you need the [Predis library](https://github.com/phpredis/phpredis).
+First you need the [Predis library](https://github.com/nrk/predis).
 This is installed with composer by running ```composer require phpredis/phpredis```
 
 You also need the [Redis Save Handler](application/library/Custom/Session/SaveHandler/Redis.php) provided and add it to your application.
@@ -53,3 +53,6 @@ resources.session.savehandler.options.client.replication = "sentinel"
 resources.session.savehandler.options.client.service = "redismaster"
 resources.session.savehandler.options.client.parameters.password = "foobared"
 ```
+
+## References
+[Zend Application Cheat Sheet](https://github.com/feibeck/application.ini/blob/master/application.ini)
