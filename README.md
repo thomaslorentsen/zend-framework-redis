@@ -31,21 +31,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     public function _initSession()
     {
-        $sentinels = ['tcp://192.168.33.10:26379'];
-        $options = [
-            'replication' => 'sentinel',
-            'service' => 'redismaster',
-            'parameters' => [
-                'password' => 'foobared',
-            ],
-        ];
+        if ( ! isset($this->_options['resources']['session']['savehandler']['class'])) {
+            return;
+        }
 
-        $saveHandler = new Custom_Session_SaveHandler_Redis(array(
-            'sentinels' => $sentinels,
-            'options' => $options,
-        ));
+        $saveHandlerOptions = $this->_options['resources']['session']['savehandler'];
+        $class = $saveHandlerOptions['class'];
+        $options = $saveHandlerOptions['options'];
+
+        $saveHandler = new $class($options);
         Zend_Session::setSaveHandler($saveHandler);
     }
 }
 ?>
+```
+Then set the configuration in ```application.ini``` with:
+```ini
+resources.session.savehandler.class = Custom_Session_SaveHandler_Redis
+resources.session.savehandler.options.sentinels[] = "tcp://192.168.33.10:26379"
+resources.session.savehandler.options.client.replication = "sentinel"
+resources.session.savehandler.options.client.service = "redismaster"
+resources.session.savehandler.options.client.parameters.password = "foobared"
 ```
